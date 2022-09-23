@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+
+  php-apache-environment:
+    container_name: php-apache
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    volumes:
+      - ./php/src:/var/www/html/
+    ports:
+      - 8000:80
+
+  db:
+    container_name: db
+    image: mysql:5.7
+    restart: always
+    environment:
+        MYSQL_ROOT_PASSWORD: eYh1OrD6II
+        MYSQL_DATABASE: id4ideas3
+        MYSQL_USER: ideasUser
+        MYSQL_PASSWORD: ideasPass
+    ports:
+        - "9906:3306"
+    volumes:
+      - ./dbdata:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - '8080:80'
+    restart: always
+    environment:
+      PMA_HOST: db
+      MYSQL_USER: ideasUser
+      MYSQL_PASSWORD: ideasPass
+      MYSQL_ROOT_PASSWORD: eYh1OrD6II 
+    depends_on:
+      - db
