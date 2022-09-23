@@ -25,6 +25,7 @@ services:
     ports:
         - "9906:3306"
     volumes:
+      - ./dump:/docker-entrypoint-initdb.d
       - ./dbdata:/var/lib/mysql
 
   phpmyadmin:
