@@ -8,4 +8,5 @@ RUN apt-get update && \
     docker-php-ext-install gd && \
     docker-php-ext-install zip
 
+# Enable mod_rewrite in Apache
 RUN a2enmod rewrite
