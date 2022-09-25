@@ -11,4 +11,4 @@ RUN docker-php-ext-install pdo_mysql
 #RUN docker-php-ext-install zip
 
 # Enable mod_rewrite in Apache
-# RUN a2enmod rewrite
+RUN a2enmod rewrite
