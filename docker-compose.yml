@@ -22,6 +22,7 @@ services:
         MYSQL_DATABASE: id4ideas3
         MYSQL_USER: ideasUser
         MYSQL_PASSWORD: ideasPass
+        TZ: 'America/Argentina/Buenos_Aires'
     ports:
         - "9906:3306"
     volumes:
@@ -38,5 +39,6 @@ services:
       MYSQL_USER: ideasUser
       MYSQL_PASSWORD: ideasPass
       MYSQL_ROOT_PASSWORD: eYh1OrD6II 
+      TZ: 'America/Argentina/Buenos_Aires'
     depends_on:
       - db
