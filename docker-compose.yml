@@ -6,8 +6,9 @@ services:
     build:
       context: ./php
       dockerfile: Dockerfile
-    depends_on:
+    links:
       - db
+      - phpmyadmin
     volumes:
       - ./php/src:/var/www/html/
     ports:
@@ -31,6 +32,7 @@ services:
       - ./dbdata:/var/lib/mysql
 
   phpmyadmin:
+    container_name: phpmyadmin
     image: phpmyadmin/phpmyadmin
     ports:
       - '8082:80'
@@ -41,5 +43,5 @@ services:
       MYSQL_PASSWORD: ideasPass
       MYSQL_ROOT_PASSWORD: eYh1OrD6II 
       TZ: 'America/Argentina/Buenos_Aires'
-    depends_on:
+    links:
       - db
