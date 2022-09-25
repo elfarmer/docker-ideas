@@ -11,7 +11,7 @@ services:
     volumes:
       - ./php/src:/var/www/html/
     ports:
-      - 8080:80
+      - '8080:80'
 
   db:
     container_name: db
@@ -25,7 +25,7 @@ services:
         MYSQL_PASSWORD: ideasPass
         TZ: 'America/Argentina/Buenos_Aires'
     ports:
-        - "8081:3306"
+        - '8081:3306'
     volumes:
       - ./dump:/docker-entrypoint-initdb.d
       - ./dbdata:/var/lib/mysql
