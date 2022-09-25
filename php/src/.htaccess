@@ -1,0 +1,8 @@
+DirectoryIndex index.php
+
+AddDefaultCharset UTF-8
+
+
+RewriteEngine On
+RewriteRule ^(img|anotherFolder)/ - [L] # do not touch any resources in these folders
+RewriteRule . index.php

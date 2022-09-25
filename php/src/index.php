@@ -1,4 +1,24 @@
 <?php
+require_once "__constants.inc.php" ;
+
+require_once "__config.inc.php" ;
+
+
+$db = MyPDO::instance();
+
+
+
+$sql = "SELECT * FROM users";
+$users = $db->run( $sql )->fetchAll() ;
+
+foreach ($users as $key => $eachUser) {
+    echo "User: {$eachUser->username} - Pass: {$eachUser->password}<br>";
+}
+
+$users = [];
+
+
+
 echo "<h1>Hello there, this is a PHP Apache container (and MySQL)</h1>";
 
 //These are the defined authentication environment in the db service
