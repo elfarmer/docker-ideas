@@ -1,58 +1,53 @@
 <?php
-require_once "__constants.inc.php" ;
+/**
+ * Id4Ideas #equipo426
+ * https://idforideas.com/
+ */
+
+declare(strict_types=1);
 
 require_once "__config.inc.php" ;
 
+set_exception_handler("errorHandler::handleException");
 
-$db = MyPDO::instance();
+//header("Content-type: application/json; charset=UTF-8");
 
 
+$parts = explode("/", $_SERVER["REQUEST_URI"]) ;
 
-$sql = "SELECT * FROM users";
-$users = $db->run( $sql )->fetchAll() ;
+print_r($parts);
+die("nana");
 
-foreach ($users as $key => $eachUser) {
-    echo "User: {$eachUser->username} - Pass: {$eachUser->password}<br>";
+$module = $parts[1] ?? null ;
+$id     = $parts[2] ?? null ;
+
+
+$methodsAllowed = [
+    "categorias" => [
+        "withId" => ["GET", "PUT", "DELETE"] ,
+        "nullId" => ["GET", "POST"] ,
+    ],
+    "productos" => [
+        "withId" => ["GET", "PUT", "DELETE"] ,
+        "nullId" => ["GET", "POST"] ,
+    ],
+];
+
+
+if ( !isset( $methodsAllowed[$module] ) ) {
+    http_response_code(404);
+    exit;
 }
 
-$users = [];
-
-
-
-echo "<h1>Hello there, this is a PHP Apache container (and MySQL)</h1>";
-
-//These are the defined authentication environment in the db service
-
-// The MySQL service named in the docker-compose.yml.
-$host = 'db';
-
-// Database use name
-$user = 'ideasUser';
-
-//database user password
-$pass = 'ideasPass';
-
-// database name
-$mydatabase = 'id4ideas3';
-
-// check the MySQL connection status
-$conn = new mysqli($host, $user, $pass, $mydatabase);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// select query
-$sql = 'SELECT * FROM users';
-
-if ($result = $conn->query($sql)) {
-    while ($data = $result->fetch_object()) {
-        $users[] = $data;
-    }
+if ( !in_array($_SERVER["REQUEST_METHOD"], $methodsAllowed[$module][(is_null($id)?"nullId":"withId")]) ) {
+    http_response_code(405);
+    header("Allow: ".implode(", ", $methodsAllowed[$module][(is_null($id)?"nullId":"withId")]));
+    exit;
 }
 
 
-foreach ($users as $user) {
-    echo "<br>";
-    echo $user->username . " " . $user->password;
-    echo "<br>";
-}
+
+$controller = new controller();
+
+$controller->processRequest($_SERVER["REQUEST_METHOD"], $module, $id);
+
