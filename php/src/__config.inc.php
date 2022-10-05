@@ -1,12 +1,12 @@
 <?php
 /**
- * Id4Ideas
- *
+ * Id4Ideas #equipo426
+ * https://idforideas.com/
  */
 
 
 /**
- * Configuración para debug (en desarrollo todos los valores pueden ser 1, pero en producción los dos últimos deben ser 0)
+ * Configuración para debug 
  */
 error_reporting(E_ALL ^ E_NOTICE );
 ini_set( "log_errors",             1 );
@@ -15,7 +15,6 @@ ini_set( "display_startup_errors", 0 );
 
 
 /**
- * Huevadas varias utf-8
  * https://phptherightway.com/#i18n_l10n
  */
 mb_internal_encoding("UTF-8");     // Tell PHP that we're using UTF-8 strings until the end of the script
