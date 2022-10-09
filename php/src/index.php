@@ -10,26 +10,23 @@ require_once "__config.inc.php" ;
 
 set_exception_handler("errorHandler::handleException");
 
-//header("Content-type: application/json; charset=UTF-8");
+header("Content-type: application/json; charset=UTF-8");
 
 
-$parts = explode("/", $_SERVER["REQUEST_URI"]) ;
+$parts = explode("/", trim(parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH), " /")) ;
+$module = $parts[0] ?? null ;
+$id     = $parts[1] ?? null ;
 
-print_r($parts);
-die("nana");
-
-$module = $parts[1] ?? null ;
-$id     = $parts[2] ?? null ;
 
 
 $methodsAllowed = [
     "categorias" => [
-        "withId" => ["GET", "PUT", "DELETE"] ,
-        "nullId" => ["GET", "POST"] ,
+        "withId" => ["GET"] ,
+        "nullId" => ["GET"] ,
     ],
     "productos" => [
-        "withId" => ["GET", "PUT", "DELETE"] ,
-        "nullId" => ["GET", "POST"] ,
+        "withId" => ["GET"] ,
+        "nullId" => ["GET"] ,
     ],
 ];
 
@@ -49,5 +46,5 @@ if ( !in_array($_SERVER["REQUEST_METHOD"], $methodsAllowed[$module][(is_null($id
 
 $controller = new controller();
 
-$controller->processRequest($_SERVER["REQUEST_METHOD"], $module, $id);
+$controller->processRequest($_SERVER["REQUEST_METHOD"], $module, $id, $_GET);
 
