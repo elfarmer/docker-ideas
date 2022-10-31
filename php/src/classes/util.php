@@ -263,6 +263,15 @@
 	}
 
 
+	public static function deliverThis( $result, $modifiers )
+	{
+		isset($modifiers["casts"]) or $modifiers["casts"] = [];
+		isset($modifiers["urls"])  or $modifiers["urls"]  = [];
+
+		return self::addUrls( self::cast( $result, $modifiers["casts"] ), $modifiers["urls"] ) ;
+	}
+
+	
 	public static function cast( $result, $cast )
 	{
 		if ( empty( $cast ) )
@@ -289,6 +298,41 @@
 					} elseif ( $value=="decimal" ) {
 						$eachResult->$key = +$eachResult->$key;
 					}
+				}
+			}
+		}
+
+
+		if ( is_array($result)==false ) {
+			return $resultArray[0] ;
+		} else {
+			return $resultArray ;
+		}
+	}
+
+
+	public static function addUrls( $result, $urls )
+	{
+		if ( empty( $urls ) )
+			return $result;
+
+
+		if ( is_array($result)==false ) {
+			/**
+			 * Recibimos directamente propiedades de un objeto.
+			 * Generalmente el resultado de un fetch() en lugar de fetchAll()
+			 */
+			$resultArray[0] = $result;
+		} else {
+			$resultArray = $result;
+		}
+	
+		
+		foreach ($resultArray as $eachResult) 
+		{
+			foreach ($urls as $key => $value) {
+				if ( isset($eachResult->$key) ) {
+					$eachResult->$key = $value.$eachResult->$key;
 				}
 			}
 		}

@@ -15,6 +15,7 @@
 	// Properties
 	private $fields ;
 	private $casts ;
+	private $urls ;
 	private $orders ;
 
 	public function __construct( )
@@ -32,6 +33,10 @@
 
 		$this->casts = [
 			"precio" => "decimal",
+		] ;
+
+		$this->urls = [
+			"imagen" => IMAGES_URL["productos"],
 		] ;
 
 		$this->orders = [
@@ -64,7 +69,7 @@
 			"where"  => $filter["where"],
 			"vars"   => $filter["params"],
 		] ;
-		return util::cast( $this->db->getRows("Productos", $sql)->fetch(), $this->casts ) ;
+		return util::deliverThis( $this->db->getRows("Productos", $sql)->fetch(), ["casts"=>$this->casts , "urls"=>$this->urls] ) ;
 	}
 
 	public function getAll( $extra, $orderId="orden-asc" )
@@ -78,7 +83,7 @@
 			"order"  => $order,
 			"vars"   => $filter["params"],
 		] ;
-		return util::cast( $this->db->getRows("Productos", $sql)->fetchAll(), $this->casts ) ;
+		return util::deliverThis( $this->db->getRows("Productos", $sql)->fetchAll(), ["casts"=>$this->casts , "urls"=>$this->urls] ) ;
 	}
 
 

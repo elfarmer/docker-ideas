@@ -23,5 +23,12 @@
    define ( 'SERVER_TIME_ZONE',  'America/Argentina/Buenos_Aires' ) ;
    define ( 'TIME_NAMES',        'es_AR'                          ) ;
 
+/* Site */
+   define ( 'SITE_URL',   'http://localhost:8080/' ) ;
+   define ( 'IMAGES_URL', [
+      'productos'  => SITE_URL.'img/',
+      'categorias' => SITE_URL.'img/',
+   ]) ;
+
 
 /* eof */
