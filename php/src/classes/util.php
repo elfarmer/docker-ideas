@@ -331,7 +331,7 @@
 		foreach ($resultArray as $eachResult) 
 		{
 			foreach ($urls as $key => $value) {
-				if ( isset($eachResult->$key) ) {
+				if ( isset($eachResult->$key) && !empty($eachResult->$key) ) {
 					$eachResult->$key = $value.$eachResult->$key;
 				}
 			}
