@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Sep 25, 2022 at 06:58 PM
--- Server version: 5.7.39
+-- Generation Time: Nov 01, 2022 at 01:44 AM
+-- Server version: 8.0.30
 -- PHP Version: 8.0.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -28,10 +28,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `Categorias` (
-  `id` int(11) UNSIGNED NOT NULL,
-  `nombre` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `imagen` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `orden` smallint(5) UNSIGNED NOT NULL
+  `id` int UNSIGNED NOT NULL,
+  `nombre` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `imagen` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `orden` smallint UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -39,10 +39,10 @@ CREATE TABLE `Categorias` (
 --
 
 INSERT INTO `Categorias` (`id`, `nombre`, `imagen`, `orden`) VALUES
-(1, 'Pizzas', '', 10),
-(2, 'Empanadas', '', 20),
-(3, 'Bebidas', '', 40),
-(4, 'Postre', '', 30);
+(1, 'Pizzas', 'catPizza.jpg', 10),
+(2, 'Empanadas', 'catEmpanadas.jpg', 20),
+(3, 'Bebidas', 'catBebidas.jpg', 40),
+(4, 'Postre', 'catPostres.jpg', 30);
 
 -- --------------------------------------------------------
 
@@ -51,12 +51,12 @@ INSERT INTO `Categorias` (`id`, `nombre`, `imagen`, `orden`) VALUES
 --
 
 CREATE TABLE `Productos` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `nombre` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `categoriaId` int(10) UNSIGNED NOT NULL,
+  `id` int UNSIGNED NOT NULL,
+  `nombre` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `categoriaId` int UNSIGNED NOT NULL,
   `precio` decimal(10,2) UNSIGNED NOT NULL,
-  `imagen` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `orden` smallint(5) UNSIGNED NOT NULL
+  `imagen` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `orden` smallint UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -72,10 +72,10 @@ INSERT INTO `Productos` (`id`, `nombre`, `categoriaId`, `precio`, `imagen`, `ord
 (6, 'Jamon y Queso', 2, '950.00', 'empanada_jamonyqueso.jpg', 40),
 (7, 'Agua', 3, '250.00', 'agua.jpg', 20),
 (8, 'Gaseosa', 3, '350.00', 'gaseosa.jpg', 10),
-(9, 'Cerveza', 3, '400.00', 'cerveza.jpg', 40),
+(9, 'Cerveza', 3, '399.99', 'cerveza.jpg', 40),
 (10, 'Almendrado', 4, '550.00', 'almendrado.jpg', 20),
 (11, 'Bombones', 4, '600.00', 'bombones.jpg', 10),
-(12, 'Helado', 4, '570.00', 'helado.jpg', 40);
+(12, 'Helado', 4, '570.75', 'helado.jpg', 40);
 
 -- --------------------------------------------------------
 
@@ -84,7 +84,7 @@ INSERT INTO `Productos` (`id`, `nombre`, `categoriaId`, `precio`, `imagen`, `ord
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `username` text NOT NULL,
   `password` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -136,19 +136,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `Categorias`
 --
 ALTER TABLE `Categorias`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `Productos`
 --
 ALTER TABLE `Productos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
